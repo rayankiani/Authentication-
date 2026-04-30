@@ -1049,18 +1049,33 @@
 
   // ── GOOGLE SIGN IN ──
   async function handleGoogleSignIn() {
+    if (!window.__auth) {
+      showToast({ title: 'Error', message: 'Firebase not initialized. Please check your config.', type: 'error' });
+      return;
+    }
+    
     const provider = new window.__GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    
     try {
       const result = await window.__signInWithPopup(window.__auth, provider);
       const user = result.user;
+      showDashboard(user);
       triggerConfetti();
       showToast({ title: 'Welcome!', message: `Signed in as ${user.displayName || user.email}`, type: 'success' });
     } catch (e) {
+      console.error('Google Sign-In Error:', e.code, e.message);
       let message = 'Google sign-in failed. Please try again.';
       if (e.code === 'auth/popup-closed-by-user') {
         message = 'Sign-in popup was closed.';
       } else if (e.code === 'auth/popup-blocked') {
         message = 'Popup was blocked. Please allow popups for this site.';
+      } else if (e.code === 'auth/cancelled-popup-request') {
+        message = 'Sign-in cancelled.';
+      } else if (e.code === 'auth/unauthorized-domain') {
+        message = 'This domain is not authorized. Please add it to Firebase Console > Auth > Settings > Authorized Domains.';
+      } else if (e.code === 'auth/operation-not-supported-in-this-environment') {
+        message = 'Popup sign-in not supported. Please use a real browser.';
       }
       showToast({ title: 'Sign In Failed', message, type: 'error' });
     }
