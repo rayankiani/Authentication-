@@ -7,22 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <!-- ============================================================
-     FIREBASE CONFIG — Replace ONLY this block with your own config
-     Go to: Firebase Console → Your Project → Project Settings → Web App
+     FIREBASE CONFIG — Add your config to firebase-config.js
+     Template: firebase-config.example.js
      ============================================================ -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { firebaseConfig } from './firebase-config.js';
 
-  // 🔥 REPLACE THIS WITH YOUR FIREBASE CONFIG:
-  const firebaseConfig = {
-  apiKey: "AIzaSyDRW5qkTtcpy82pdy0KmjY8ETZhjS6vr6k",
-  authDomain: "authentication-d4a38.firebaseapp.com",
-  projectId: "authentication-d4a38",
-  storageBucket: "authentication-d4a38.firebasestorage.app",
-  messagingSenderId: "694237878149",
-  appId: "1:694237878149:web:eb8d80f55141d794af56ec"
-};
   // ============================================================
 
   const app = initializeApp(firebaseConfig);
