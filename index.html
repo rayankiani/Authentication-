@@ -1106,7 +1106,7 @@
       } else if (e.code === 'auth/unauthorized-domain') {
         message = 'This domain is not authorized. Please add it to Firebase Console > Auth > Settings > Authorized Domains.';
       } else if (e.code === 'auth/account-exists-with-different-credential') {
-        message = 'An account already exists with the same email address but different sign-in credentials.';
+        message = 'This email is already linked to another sign-in method (Google/Email). Please sign in with that method first.';
       }
       showToast({ title: 'Sign In Failed', message, type: 'error' });
     }
